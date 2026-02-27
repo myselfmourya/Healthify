@@ -51,6 +51,9 @@ export async function mistralChat(messages: AIMessage[], model = DEFAULT_MODEL, 
 
         if (!res.ok) {
             const errText = await res.text();
+            if (res.status === 401) {
+                throw new Error("Mistral API Key is invalid or not set. Please set the MISTRAL_API_KEY environment variable in your dashboard.");
+            }
             throw new Error(`Mistral HTTP ${res.status}: ${errText}`);
         }
 
@@ -296,11 +299,56 @@ JSON format:
                 title: "Government Expands Ayushman Bharat Coverage to 20 Crore More Families",
                 description: "The PM-JAY scheme will now cover additional families in rural areas, offering ₹5 lakh health coverage per year.",
                 category: "Policy",
-                content: "The government has announced an major expansion of the Ayushman Bharat Pradhan Mantri Jan Arogya Yojana scheme to cover an additional 20 crore families across India. The expansion focuses primarily on rural and semi-urban areas where access to quality healthcare remains limited.\n\nBeneficiaries will receive up to ₹5 lakh in annual health coverage, usable at any empanelled government or private hospital across India. The scheme covers over 1,500 medical procedures including complex surgeries.\n\nHealth officials note this represents a significant step toward Universal Health Coverage by 2030.",
-                publishedAt: "2026-02-25T08:00:00Z",
+                content: "The government has announced a major expansion of the Ayushman Bharat scheme to cover an additional 20 crore families across India...",
+                publishedAt: new Date().toISOString(),
                 source: "Ministry of Health",
+                url: "https://pib.gov.in",
+            },
+            {
+                title: "Rising Awareness of Mental Health in Urban India",
+                description: "New studies show a 40% increase in individuals seeking professional help for anxiety and stress in major cities.",
+                category: "Mental Health",
+                content: "Mental health awareness is at an all-time high in urban centers like Mumbai, Delhi, and Bangalore...",
+                publishedAt: new Date().toISOString(),
+                source: "Health Times",
                 url: "https://health.economictimes.indiatimes.com",
             },
+            {
+                title: "Monsoon Health: How to Prevent Dengue and Malaria",
+                description: "Health department issues advisory as monsoon cases of vector-borne diseases see a seasonal spike.",
+                category: "Wellness",
+                content: "With the onset of monsoon, health authorities are urging citizens to take preventive measures...",
+                publishedAt: new Date().toISOString(),
+                source: "National Health Portal",
+                url: "https://nhp.gov.in",
+            },
+            {
+                title: "The Rise of Personalized Nutrition in Modern Diets",
+                description: "Dietitians emphasize 'one size doesn't fit all' approach as more Indians opt for DNA-based nutrition plans.",
+                category: "Nutrition",
+                content: "Personalized nutrition is becoming a key trend in the wellness industry...",
+                publishedAt: new Date().toISOString(),
+                source: "Nutrition India",
+                url: "https://www.fssai.gov.in",
+            },
+            {
+                title: "Digital Healthcare: Telemedicine Reaches Far Rural Corners",
+                description: "Over 5,000 villages now connected to top city specialists via new government e-health portals.",
+                category: "Technology",
+                content: "Telemedicine is revolutionizing healthcare accessibility in remote areas...",
+                publishedAt: new Date().toISOString(),
+                source: "Digital India",
+                url: "https://www.digitalindia.gov.in",
+            },
+            {
+                title: "New Advances in Diabetes Management Launched in India",
+                description: "Affordable continuous glucose monitoring devices make blood sugar tracking easy for millions.",
+                category: "Innovation",
+                content: "Innovative healthcare startups are making diabetes management more affordable...",
+                publishedAt: new Date().toISOString(),
+                source: "Medical News India",
+                url: "https://www.medicalnewstoday.com",
+            }
         ];
     }
 }

@@ -248,6 +248,19 @@ function HealthAssistant() {
                 setLoading(false);
             },
             (err) => {
+                const isServerError = err && (err.includes("AI unavailable") || err.includes("API Error") || err.includes("HTTP 401") || err.includes("HTTP 500"));
+
+                if (isServerError) {
+                    setError(err);
+                    setMessages((p) => [...p, {
+                        role: "assistant",
+                        text: `${t("Notice")}: ${err}. ${t("This usually means the server's AI service is misconfigured or unauthorized.")}`,
+                        timestamp: new Date()
+                    }]);
+                    setLoading(false);
+                    return;
+                }
+
                 setError(err);
 
                 const query = text.toLowerCase();
