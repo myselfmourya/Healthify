@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: healthify-app
+    name: healthify-75app
     env: node
     plan: free
     buildCommand: npm install && npm run build
